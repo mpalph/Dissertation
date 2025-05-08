@@ -1,0 +1,5 @@
+[Switch ECU] Memory Usage Log
+[20:35:52] Memory Usage: 29.39 MB
+[20:35:55] Memory Usage: 29.39 MB
+[20:36:01] Memory Usage: 29.39 MB
+[20:36:03] Memory Usage: 29.39 MB
