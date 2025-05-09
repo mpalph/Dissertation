@@ -82,7 +82,7 @@ def input_loop():
                 bus.send(msg)
 
             elif key == readchar.key.LEFT:
-                # ⬅Toggle left indicator
+                # Toggle left indicator
                 msg = can.Message(arbitration_id=0x001, data=[0x04], is_extended_id=False)
                 bus.send(msg)
 

@@ -1,16 +1,11 @@
-# loggermem.py
-# 🧠 Live ECU Memory Usage Monitor (No CPU Stats)
-# ──────────────────────────────────────────────────────
-# ✅ Tracks memory usage of all ECUs (Static + MTD)
-# ✅ Matches by partial script path
-# ✅ Clean single-line refresh every second
+# Tracks memory usage of all ECUs (Static + MTD)
 
 import psutil
 import time
 import datetime
 import os
 
-# 🔍 Static instance ECU script paths
+# Static instance ECU script paths
 STATIC_SWITCH_PATH = "Static/ECUs/HeadlampSwitch/headlamp_switch_ecu.py"
 STATIC_HEADLAMP_PATH = "Static/ECUs/Headlamp/headlamp_ecu.py"
 STATIC_FORCESENSOR_PATH = "Static/ECUs/ForceSensor/force_sensor_ecu.py"
@@ -20,7 +15,7 @@ STATIC_INDICATOR_SWITCH_PATH = "Static/ECUs/IndicatorSwitch/indicator_switch_ecu
 STATIC_LEFT_INDICATOR_PATH = "Static/ECUs/LeftIndicator/left_indicator_ecu.py"
 STATIC_RIGHT_INDICATOR_PATH = "Static/ECUs/RightIndicator/right_indicator_ecu.py"
 
-# 🔍 MTD instance ECU script paths
+# MTD instance ECU script paths
 MTD_SWITCH_PATH = "MTD/ECUs/HeadlampSwitch/headlamp_switch_ecu.py"
 MTD_HEADLAMP_PATH = "MTD/ECUs/Headlamp/headlamp_ecu.py"
 MTD_FORCESENSOR_PATH = "MTD/ECUs/ForceSensor/force_sensor_ecu.py"
@@ -45,14 +40,12 @@ def find_process_by_path(target_path):
     return None
 
 def monitor_resources():
-    print("[Logger] 🚀 Monitoring ECU memory usage...\nPress Ctrl+C to stop.\n")
     time.sleep(1)
 
     try:
         while True:
             timestamp = datetime.datetime.now().strftime("%H:%M:%S")
 
-            # 🔍 Find each ECU process
             static_ecus = {
                 "STATIC HEADLIGHT SWITCH ECU": find_process_by_path(STATIC_SWITCH_PATH),
                 "STATIC HEADLAMP ECU": find_process_by_path(STATIC_HEADLAMP_PATH),
@@ -62,6 +55,10 @@ def monitor_resources():
                 "STATIC INDICATOR SWITCH ECU": find_process_by_path(STATIC_INDICATOR_SWITCH_PATH),
                 "STATIC LEFT INDICATOR ECU": find_process_by_path(STATIC_LEFT_INDICATOR_PATH),
                 "STATIC RIGHT INDICATOR ECU": find_process_by_path(STATIC_RIGHT_INDICATOR_PATH),
+                "Static Battery ECU": find_process_by_path("Static/ECUs/Battery/battery_ecu.py"),
+                "Static Fuel System ECU": find_process_by_path("Static/ECUs/FuelSystem/fuel_system_ecu.py"),
+                "Static Engine Control ECU": find_process_by_path("Static/ECUs/EngineControl/engine_control_ecu.py"),
+                "Static Starter Motor ECU": find_process_by_path("Static/ECUs/StarterMotor/starter_motor_ecu.py"),
             }
 
             mtd_ecus = {
@@ -73,6 +70,10 @@ def monitor_resources():
                 "MTD INDICATOR SWITCH ECU": find_process_by_path(MTD_INDICATOR_SWITCH_PATH),
                 "MTD LEFT INDICATOR ECU": find_process_by_path(MTD_LEFT_INDICATOR_PATH),
                 "MTD RIGHT INDICATOR ECU": find_process_by_path(MTD_RIGHT_INDICATOR_PATH),
+                "MTD Battery ECU": find_process_by_path("MTD/ECUs/Battery/battery_ecu.py"),
+                "MTD Fuel System ECU": find_process_by_path("MTD/ECUs/FuelSystem/fuel_system_ecu.py"),
+                "MTD Engine Control ECU": find_process_by_path("MTD/ECUs/EngineControl/engine_control_ecu.py"),
+                "MTD Starter Motor ECU": find_process_by_path("MTD/ECUs/StarterMotor/starter_motor_ecu.py"),
             }
 
             def get_mem(proc):
@@ -81,10 +82,8 @@ def monitor_resources():
                 else:
                     return 0.0
 
-            # 🧹 Clear screen before reprinting
             os.system('clear')
 
-            # 📊 Print memory usage
             print(f"[{timestamp}] ECU Memory Usage (MB)\n")
 
             print("── Static ECUs ───────────────────────────")
@@ -99,7 +98,7 @@ def monitor_resources():
             time.sleep(1)
 
     except KeyboardInterrupt:
-        print("\n[Logger] 🧯 Monitoring stopped.")
+        print("Stopped.")
 
 if __name__ == "__main__":
     monitor_resources()
